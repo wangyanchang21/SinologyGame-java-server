@@ -1,44 +1,58 @@
 package com.util;
 
-import java.io.*;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.awt.List;
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+
+import com.util.StatusCode;
 
 public class ResponseUtil
 {
-    public static String data(Object data, Boolean isSuccess) {
+
+    public static String success() {
+        String result = success(null);
+        return result;
+    }
+
+    public static String success(Object data) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("data", data == null ? "" : data);
-        resultMap.put("isSuccess", isSuccess);
-        resultMap.put("statusCode", isSuccess ? "10000" : "未定义");
+        resultMap.put("isSuccess", true);
+        resultMap.put("statusCode", StatusCode.SUCCESS);
 
         String result = JSON.toJSONString(resultMap);
         return result;
     }
 
-    public static String jsonData(String json, Boolean isSuccess) {
+    public static String successJSON(String json) {
 
         Object jsonObjc = null;
         if (json != null) {
             jsonObjc = JSON.parse(json);
-        } 
+        }
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("data", json == null ? "" : jsonObjc);
-        resultMap.put("isSuccess", isSuccess);
-        resultMap.put("statusCode", isSuccess ? "10000" : "未定义");
+        resultMap.put("isSuccess", true);
+        resultMap.put("statusCode", StatusCode.SUCCESS);
+
+        String result = JSON.toJSONString(resultMap);
+        return result;
+    }
+
+    public static String error(String errorCode) {
+        String result = error(null, errorCode);
+        return result;
+    }
+
+    public static String error(Object errorData, String errorCode) {
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("data", errorData == null ? "" : errorData);
+        resultMap.put("isSuccess", false);
+        resultMap.put("statusCode", errorCode);
 
         String result = JSON.toJSONString(resultMap);
         return result;

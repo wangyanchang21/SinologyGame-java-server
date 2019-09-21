@@ -1,10 +1,7 @@
 package com.weapp;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +11,12 @@ import com.config.AppConfig;
 import com.util.RequestUtil;
 import com.util.JsonFileUtil;
 import com.util.ResponseUtil;
+import com.util.StatusCode;
 
 
  @RestController
  public class StartController {
     private static final Logger bizLogger = LoggerFactory.getLogger(StartController.class);
-    
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String hello() {
@@ -32,7 +29,6 @@ import com.util.ResponseUtil;
     @ResponseBody
     public String requestCode2Session(@RequestParam(value = "code") String js_code) {
         String url = "https://api.weixin.qq.com/sns/jscode2session";
-        String result;
 
         try {
             Map<String, Object> paraMap = new HashMap<String, Object>();
@@ -42,13 +38,14 @@ import com.util.ResponseUtil;
             paraMap.put("grant_type", "authorization_code");
             String paraString = RequestUtil.parametersFormat(paraMap);
 
-            result = RequestUtil.get(url + paraString);
+            String json = RequestUtil.get(url + paraString);
+            String result = ResponseUtil.successJSON(json);
+            return result;
          } catch (Exception e) {
-            result = "Error";
-             e.printStackTrace();
-             bizLogger.error("requestCode2Session Error", e);
+            bizLogger.error("requestCode2Session Error", e);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
+            return result;
          }
-         return result;
     }
 
     // auth.getAccessToken
@@ -56,7 +53,6 @@ import com.util.ResponseUtil;
     @ResponseBody
     public String requestAccessToken() {
         String url = "https://api.weixin.qq.com/cgi-bin/token";
-        String result;
 
         try {
             Map<String, Object> paraMap = new HashMap<String, Object>();
@@ -65,13 +61,15 @@ import com.util.ResponseUtil;
             paraMap.put("grant_type", "client_credential");
             String paraString = RequestUtil.parametersFormat(paraMap);
 
-            result = RequestUtil.get(url + paraString);
+            String json = RequestUtil.get(url + paraString);
+            String result = ResponseUtil.successJSON(json);
+             System.out.println(result);
+            return result;
          } catch (Exception e) {
-            result = "Error";
-             e.printStackTrace();
-             bizLogger.error("requestCode2Session Error", e);
+            bizLogger.error("requestCode2Session Error", e);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
+            return result;
          }
-         return result;
     }
 
     // 获取小程序二维码
@@ -91,11 +89,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String tang = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(tang, true);
+            String result = ResponseUtil.successJSON(tang);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -109,11 +107,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String song = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(song, true);
+            String result = ResponseUtil.successJSON(song);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -127,11 +125,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String lunyu = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(lunyu, true);
+            String result = ResponseUtil.successJSON(lunyu);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -145,11 +143,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String mengzi = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(mengzi, true);
+            String result = ResponseUtil.successJSON(mengzi);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -163,11 +161,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String shijing = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(shijing, true);
+            String result = ResponseUtil.successJSON(shijing);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -181,11 +179,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String daxue = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(daxue, true);
+            String result = ResponseUtil.successJSON(daxue);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -199,11 +197,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String zhongyong = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(zhongyong, true);
+            String result = ResponseUtil.successJSON(zhongyong);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
@@ -218,11 +216,11 @@ import com.util.ResponseUtil;
             String path = getClass().getClassLoader().getResource(resource).getPath();
             String dioimList = JsonFileUtil.read(path);
 
-            String result = ResponseUtil.jsonData(dioimList, true);
+            String result = ResponseUtil.successJSON(dioimList);
             System.out.println(result);
             return result;
         } catch (Exception e) {
-            String result = ResponseUtil.data(null, false);
+            String result = ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             return result;
         }
     }
