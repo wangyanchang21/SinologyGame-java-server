@@ -19,7 +19,10 @@ public class JsonFileUtil
         String jsonStr = "";
 
         try {
-            File jsonFile = new File(fileName);
+            // 解决中文路径错误的问题
+            String utf8Path = java.net.URLDecoder.decode(fileName,"utf-8");
+
+            File jsonFile = new File(utf8Path);
             FileReader fileReader = new FileReader(jsonFile);
 
             Reader reader = new InputStreamReader(new FileInputStream(jsonFile),"utf-8");
