@@ -1,4 +1,4 @@
-package com.weapp;
+package com.weapp.controller;
 
 import java.util.HashMap;
 import java.util.Map;

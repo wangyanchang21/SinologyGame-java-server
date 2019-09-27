@@ -22,12 +22,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `userId` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `userID` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `openId` bigint(64) NOT NULL COMMENT 'wx用户唯一标识',
   `userName` varchar(64) DEFAULT NULL COMMENT '用户名',
   `userAvatar` varchar(128) DEFAULT NULL COMMENT '头像',
-  `userLevel` bigint(20) NOT NULL COMMENT '用户等级',
-  `bestPass` bigint(20) NOT NULL COMMENT '最高关卡',
+  `userLevel` bigint(32) NULL COMMENT '用户等级',
+  `bestPass` bigint(32) NULL COMMENT '最高关卡',
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
