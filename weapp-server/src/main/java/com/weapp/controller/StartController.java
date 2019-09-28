@@ -3,6 +3,7 @@ package com.weapp.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import com.util.RequestUtil;
 import com.util.JsonFileUtil;
 import com.util.ResponseUtil;
 import com.util.StatusCode;
+import com.weapp.dto.User;
 
 
  @RestController
@@ -72,11 +74,30 @@ import com.util.StatusCode;
          }
     }
 
-    // 获取小程序二维码
-    // wxacode.createQRCode
+    // User System
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(User user) {
 
-    // 获取数据分析
+        return "";
+    }
 
+    @RequestMapping(value = "/getUserRankList", method = RequestMethod.GET)
+    public String getUserRankList() {
+
+        return "";
+    }
+
+    @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
+    public String getUserInfo(Lang openId) {
+
+        return "";
+    }
+
+    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.GET)
+    public String updateUserInfo(User user) {
+
+        return "";
+    }
 
 
     // Custom Interface

@@ -27,6 +27,7 @@ CREATE TABLE `users` (
   `userName` varchar(64) DEFAULT NULL COMMENT '用户名',
   `userAvatar` varchar(128) DEFAULT NULL COMMENT '头像',
   `userLevel` bigint(32) NULL COMMENT '用户等级',
+  `currentPass` bigint(32) NULL COMMENT '当前关卡',
   `bestPass` bigint(32) NULL COMMENT '最高关卡',
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
