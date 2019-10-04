@@ -18,7 +18,7 @@ public class ResponseUtil
     public static String success(Object data) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("data", data == null ? "" : data);
+        resultMap.put("data", null == data ? "" : data);
         resultMap.put("isSuccess", true);
         resultMap.put("statusCode", StatusCode.SUCCESS);
 
@@ -34,7 +34,7 @@ public class ResponseUtil
         }
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("data", json == null ? "" : jsonObjc);
+        resultMap.put("data", null == json ? "" : jsonObjc);
         resultMap.put("isSuccess", true);
         resultMap.put("statusCode", StatusCode.SUCCESS);
 
@@ -50,7 +50,7 @@ public class ResponseUtil
     public static String error(Object errorData, String errorCode) {
 
         Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("data", errorData == null ? "" : errorData);
+        resultMap.put("data", null == errorData ? "" : errorData);
         resultMap.put("isSuccess", false);
         resultMap.put("statusCode", errorCode);
 

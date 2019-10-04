@@ -23,12 +23,17 @@ public class UserServiceImpl implements UserService {
     public String createUser(User user) {
         if (user.openId != null && !StringUtils.isEmpty(user.userName)) {
             try {
-                Long one = Long.valueOf(1);
-                user.setUserLevel(one);
-                user.setCurrentPass(one);
-                user.setBestPass(one);
-                userMapper.insert(user);
-                return ResponseUtil.success();
+                User oldUser = userMapper.getUser(user.openId);
+                if (null == oldUser) {
+                    Long one = Long.valueOf(1);
+                    user.setUserLevel(one);
+                    user.setCurrentPass(one);
+                    user.setBestPass(one);
+                    userMapper.insert(user);
+                    return ResponseUtil.success();
+                } else {
+                    return ResponseUtil.error("old user, don't need to create", StatusCode.ALREADY_DID_ERROR);
+                }
             } catch (DataAccessException e) {
                 System.err.println(e);
                 return ResponseUtil.error(e.getMessage(), StatusCode.SQL_ERROR);
@@ -57,7 +62,11 @@ public class UserServiceImpl implements UserService {
     public String getUserInfo(Long openId) {
         try {
             User user = userMapper.getUser(openId);
-            return ResponseUtil.success(user);
+            if (null == user) {
+                return ResponseUtil.error("没有对应的数据", StatusCode.NOT_FIND_ERROR);
+            } else {
+                return ResponseUtil.success(user);
+            }
         } catch (DataAccessException e) {
             System.err.println(e);
             return ResponseUtil.error(e.getMessage(), StatusCode.SQL_ERROR);
@@ -70,7 +79,26 @@ public class UserServiceImpl implements UserService {
     public String updateUserInfo(User user) {
         if (user.openId != null) {
             try {
-                userMapper.update(user);
+                User oldUser = userMapper.getUser(user.openId);
+                if (null == oldUser) {
+                    return ResponseUtil.error("没有对应的数据", StatusCode.NOT_FIND_ERROR);
+                }
+                if (user.userName != null) {
+                    oldUser.setUserName(user.userName);
+                }
+                if (user.userAvatar != null) {
+                    oldUser.setUserAvatar(user.userAvatar);
+                }
+                if (user.userLevel != null) {
+                    oldUser.setUserLevel(user.userLevel);
+                }
+                if (user.currentPass != null) {
+                    oldUser.setCurrentPass(user.currentPass);
+                }
+                if (user.bestPass != null) {
+                    oldUser.setBestPass(user.bestPass);
+                }
+                userMapper.update(oldUser);
                 return ResponseUtil.success();
             } catch (DataAccessException e) {
                 System.err.println(e);

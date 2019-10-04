@@ -3,9 +3,9 @@ package com.weapp.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Lang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.config.AppConfig;
@@ -14,10 +14,15 @@ import com.util.JsonFileUtil;
 import com.util.ResponseUtil;
 import com.util.StatusCode;
 import com.weapp.dto.User;
+import com.weapp.service.UserService;
 
 
  @RestController
  public class StartController {
+
+    @Autowired
+    private UserService userService;
+
     private static final Logger bizLogger = LoggerFactory.getLogger(StartController.class);
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
@@ -77,26 +82,26 @@ import com.weapp.dto.User;
     // User System
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(User user) {
-
-        return "";
+        String result = userService.createUser(user);
+        return result;
     }
 
     @RequestMapping(value = "/getUserRankList", method = RequestMethod.GET)
     public String getUserRankList() {
-
-        return "";
+        String result = userService.getUserRankList();
+        return result;
     }
 
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
-    public String getUserInfo(Lang openId) {
-
-        return "";
+    public String getUserInfo(Long openId) {
+        String result = userService.getUserInfo(openId);
+        return result;
     }
 
     @RequestMapping(value = "/updateUserInfo", method = RequestMethod.GET)
     public String updateUserInfo(User user) {
-
-        return "";
+        String result = userService.updateUserInfo(user);
+        return result;
     }
 
 

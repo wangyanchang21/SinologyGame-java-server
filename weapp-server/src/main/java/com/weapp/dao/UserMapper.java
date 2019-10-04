@@ -11,7 +11,7 @@ import com.weapp.dto.User;
 
 public interface UserMapper {
 
-	@Select("SELECT * from users ORDER BY bestPass DESC LIMIT 50")
+	@Select("SELECT * from users ORDER BY bestPass DESC LIMIT 0,29")
 	List<User> getUserRankList();
 
 	@Insert("INSERT INTO users(openId, userName, userAvatar, userLevel, currentPass, bestPass) VALUES(#{openId}, #{userName}, #{userAvatar}, #{userLevel}, #{currentPass}, #{bestPass})")
@@ -20,10 +20,10 @@ public interface UserMapper {
 	@Select("SELECT * FROM users WHERE openId = #{openId}")
 	User getUser(Long openId);
 
-	@Update("UPDATE users SET currentPass=#{currentPass}, bestPass=#{bestPass}, userLevel=#{userLevel} WHERE openId =#{openId}")
+	@Update("UPDATE users SET userName=#{userName}, userAvatar=#{userAvatar}, currentPass=#{currentPass}, bestPass=#{bestPass}, userLevel=#{userLevel} WHERE openId =#{openId}")
 	void update(User user);
 
-	// drop data
+	// standby
 	@Select("SELECT * FROM users")
 	List<User> getUserList();
 	
