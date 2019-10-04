@@ -18,7 +18,7 @@ public interface UserMapper {
 	void insert(User user);
 
 	@Select("SELECT * FROM users WHERE openId = #{openId}")
-	User getUser(Long openId);
+	User getUser(String openId);
 
 	@Update("UPDATE users SET userName=#{userName}, userAvatar=#{userAvatar}, currentPass=#{currentPass}, bestPass=#{bestPass}, userLevel=#{userLevel} WHERE openId =#{openId}")
 	void update(User user);
@@ -28,6 +28,6 @@ public interface UserMapper {
 	List<User> getUserList();
 	
 	@Delete("DELETE FROM users WHERE openId = #{openId}")
-	void delete(Long openId);
+	void delete(String openId);
 
 }

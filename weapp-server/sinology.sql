@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userID` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `openId` bigint(64) NOT NULL COMMENT 'wx用户唯一标识',
+  `openId` varchar(64) NOT NULL COMMENT 'wx用户唯一标识',
   `userName` varchar(64) DEFAULT NULL COMMENT '用户名',
   `userAvatar` varchar(128) DEFAULT NULL COMMENT '头像',
   `userLevel` bigint(32) NULL COMMENT '用户等级',

@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.config.AppConfig;
 import com.util.RequestUtil;
 import com.util.JsonFileUtil;
@@ -80,10 +82,29 @@ import com.weapp.service.UserService;
     }
 
     // User System
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(User user) {
+    @RequestMapping(value = "/registerUser", method = RequestMethod.GET)
+    public String registerUser(User user) {
         String result = userService.createUser(user);
         return result;
+    }
+
+    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.GET)
+    public String updateUserInfo(User user) {
+        String result = userService.updateUserInfo(user);
+        return result;
+    }
+
+    @RequestMapping(value = "/registerOrUpdateUser", method = RequestMethod.GET)
+    public String registerOrUpdateUser(User user) {
+        String registerResult = userService.createUser(user);
+        JSONObject registerJO = (JSONObject) JSON.parse(registerResult);
+        boolean isSuccess = (boolean) registerJO.get("isSuccess");
+        if (isSuccess) {
+            return registerResult;
+        } else {
+            String updateResult = userService.updateUserInfo(user);
+            return updateResult;
+        }
     }
 
     @RequestMapping(value = "/getUserRankList", method = RequestMethod.GET)
@@ -93,14 +114,8 @@ import com.weapp.service.UserService;
     }
 
     @RequestMapping(value = "/getUserInfo", method = RequestMethod.GET)
-    public String getUserInfo(Long openId) {
+    public String getUserInfo(String openId) {
         String result = userService.getUserInfo(openId);
-        return result;
-    }
-
-    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.GET)
-    public String updateUserInfo(User user) {
-        String result = userService.updateUserInfo(user);
         return result;
     }
 

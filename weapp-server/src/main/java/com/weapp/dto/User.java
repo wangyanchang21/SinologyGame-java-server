@@ -8,7 +8,7 @@ public class User {
     public Long userLevel;
     public Long currentPass;
     public Long bestPass;
-	public Long openId;
+	public String openId;
 
     public Long getUserId() {
         return userId;
@@ -52,10 +52,10 @@ public class User {
         this.bestPass = bestPass;
     }
 
-    public Long getOpenId() {
+    public String getOpenId() {
         return openId;
     }
-    public void setOpenId(Long openId) {
+    public void setOpenId(String openId) {
         this.openId = openId;
     }
 

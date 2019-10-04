@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public String getUserInfo(Long openId) {
+    public String getUserInfo(String openId) {
         try {
             User user = userMapper.getUser(openId);
             if (null == user) {
