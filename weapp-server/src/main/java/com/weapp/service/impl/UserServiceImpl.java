@@ -89,15 +89,26 @@ public class UserServiceImpl implements UserService {
                 if (user.userAvatar != null) {
                     oldUser.setUserAvatar(user.userAvatar);
                 }
-                if (user.userLevel != null) {
-                    oldUser.setUserLevel(user.userLevel);
-                }
                 if (user.currentPass != null) {
                     oldUser.setCurrentPass(user.currentPass);
                 }
-                if (user.bestPass != null) {
-                    oldUser.setBestPass(user.bestPass);
+                // bestPass规则
+                if (user.currentPass != null && user.currentPass > oldUser.bestPass) {
+                    oldUser.setBestPass(user.currentPass);
                 }
+                // leve规则
+                if (oldUser.bestPass <= 20) {
+                    oldUser.setUserLevel(Long.valueOf(1));
+                } else if (oldUser.bestPass <= 50) {
+                    oldUser.setUserLevel(Long.valueOf(2));
+                } else if (oldUser.bestPass <= 100) {
+                    oldUser.setUserLevel(Long.valueOf(3));
+                } else if (oldUser.bestPass <= 200) {
+                    oldUser.setUserLevel(Long.valueOf(4));
+                } else {
+                    oldUser.setUserLevel(Long.valueOf(5));
+                }
+
                 userMapper.update(oldUser);
                 return ResponseUtil.success();
             } catch (DataAccessException e) {
