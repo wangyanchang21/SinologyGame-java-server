@@ -11,7 +11,7 @@ import com.weapp.dto.User;
 
 public interface UserMapper {
 
-	@Select("SELECT * from users ORDER BY bestPass DESC LIMIT 0,19")
+	@Select("SELECT * from users ORDER BY bestPass DESC LIMIT 0,14")
 	List<User> getUserRankList();
 
 	@Insert("INSERT INTO users(openId, userName, userAvatar, userLevel, currentPass, bestPass) VALUES(#{openId}, #{userName}, #{userAvatar}, #{userLevel}, #{currentPass}, #{bestPass})")
