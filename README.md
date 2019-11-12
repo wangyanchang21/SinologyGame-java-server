@@ -16,9 +16,9 @@
 ![SinologyGame-java-server](https://raw.githubusercontent.com/wangyanchang21/SinologyGame-java-server/master/images/directory.png)
 
 
-## 小程序端
+## 对应小程序端源码
 
-[SinologyGame-mini-program](https://github.com/wangyanchang21/SinologyGame-mini-program)
+项目地址：[SinologyGame-mini-program](https://github.com/wangyanchang21/SinologyGame-mini-program)。
 
 ![](https://raw.githubusercontent.com/wangyanchang21/SinologyGame-mini-program/master/images/sinology.png)
 
