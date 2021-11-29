@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
                 return ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             }
         } else {
-            return ResponseUtil.error("openId or userName is uncorrect", StatusCode.PARAMETERE_ERROR);
+            return ResponseUtil.error("openId or userName is incorrect", StatusCode.PARAMETERE_ERROR);
         }
     }
 
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
                 return ResponseUtil.error(e.getMessage(), StatusCode.COMMON_ERROR);
             }
         } else {
-            return ResponseUtil.error("openId is uncorrect", StatusCode.PARAMETERE_ERROR);
+            return ResponseUtil.error("openId is incorrect", StatusCode.PARAMETERE_ERROR);
         }
     }
 
